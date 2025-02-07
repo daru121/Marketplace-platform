@@ -28,7 +28,7 @@ function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="dashboard-layout">
       {/* Sidebar */}
       <aside className="fixed inset-y-0 left-0 w-64 bg-white shadow-lg">
         <div className="flex flex-col h-full">

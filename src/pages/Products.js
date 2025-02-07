@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import ProductCard from '../components/ProductCard';
+import { Link } from 'react-router-dom';
 import { ChevronDownIcon, FunnelIcon } from '@heroicons/react/24/outline';
-
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -62,17 +61,18 @@ function Products() {
 
   return (
     <div className="container mx-auto px-4 py-8 mt-20">
-      {/* Filters */}
-      <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
+      {/* Filter Section */}
+      <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
         <div className="flex flex-col md:flex-row md:items-center gap-4">
           {/* Category Filter */}
           <div className="flex-1">
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg 
+                       focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition-all"
             >
-              <option value="">All Categories</option>
+              <option value="">Semua Kategori</option>
               {categories.map(category => (
                 <option key={category.id} value={category.id}>
                   {category.name}
@@ -85,23 +85,27 @@ function Products() {
           <form onSubmit={handlePriceFilter} className="flex-1 flex gap-2">
             <input
               type="number"
-              placeholder="Min Price"
+              placeholder="Harga Minimum"
               value={priceRange.min}
               onChange={(e) => setPriceRange({...priceRange, min: e.target.value})}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg 
+                       focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition-all"
             />
             <input
               type="number"
-              placeholder="Max Price"
+              placeholder="Harga Maksimum"
               value={priceRange.max}
               onChange={(e) => setPriceRange({...priceRange, max: e.target.value})}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg 
+                       focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition-all"
             />
             <button
               type="submit"
-              className="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600"
+              className="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 
+                       transition-colors duration-300 flex items-center gap-2"
             >
               <FunnelIcon className="w-5 h-5" />
+              Filter
             </button>
           </form>
 
@@ -110,12 +114,13 @@ function Products() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg 
+                       focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition-all"
             >
-              <option value="newest">Newest</option>
-              <option value="price_low">Price: Low to High</option>
-              <option value="price_high">Price: High to Low</option>
-              <option value="popular">Most Popular</option>
+              <option value="newest">Terbaru</option>
+              <option value="price_low">Harga: Rendah ke Tinggi</option>
+              <option value="price_high">Harga: Tinggi ke Rendah</option>
+              <option value="popular">Paling Populer</option>
             </select>
           </div>
         </div>
@@ -124,12 +129,45 @@ function Products() {
       {/* Products Grid */}
       {products.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-gray-500">No products found</p>
+          <p className="text-gray-500">Tidak ada produk ditemukan</p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {products.map(product => (
-            <ProductCard key={product.id} product={product} />
+            <Link 
+              key={product.id} 
+              to={`/product/${product.id}`}
+              className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500 
+                       overflow-hidden flex flex-col h-[320px] border border-gray-100 hover:border-blue-100"
+            >
+              {/* Image Container */}
+              <div className="h-[180px] overflow-hidden bg-gray-50 relative">
+                <img
+                  src={product.image_url ? `http://localhost:5000${product.image_url}` : 'https://via.placeholder.com/300x300'}
+                  alt={product.name}
+                  className="w-full h-full object-cover transform transition-all duration-700 
+                           group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 via-transparent to-transparent 
+                             opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+
+              {/* Product Info */}
+              <div className="p-4 flex flex-col justify-between flex-grow">
+                <div className="h-[48px]">
+                  <h3 className="text-sm font-medium text-gray-800 line-clamp-2 leading-snug 
+                               group-hover:text-blue-600 transition-colors">
+                    {product.name}
+                  </h3>
+                </div>
+                
+                <div className="mt-2">
+                  <div className="text-lg font-bold text-blue-600">
+                    Rp {new Intl.NumberFormat('id-ID').format(product.price)}
+                  </div>
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
       )}

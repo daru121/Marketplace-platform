@@ -2,19 +2,21 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 
 function Layout() {
+  const { getTotalItems } = useCart();
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50/50 via-white to-gray-50/50">
+    <div className="flex flex-col min-h-screen bg-gray-100">
       <Navbar />
-      <main className="flex-grow container mx-auto px-4 py-8">
-        <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-100/50 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-50/30 to-transparent"></div>
-          <div className="relative p-6">
-            <Outlet />
-          </div>
+      <div className="flex-grow w-full">
+        <div className="max-w-[1440px] mx-auto bg-white">
+          <Outlet />
         </div>
-      </main>
+      </div>
       <Footer />
     </div>
   );

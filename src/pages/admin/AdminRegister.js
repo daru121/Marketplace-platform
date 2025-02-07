@@ -4,10 +4,11 @@ import {
   EnvelopeIcon, 
   LockClosedIcon, 
   UserIcon, 
-  PhoneIcon,
   EyeIcon, 
-  EyeSlashIcon 
+  EyeSlashIcon,
+  CheckCircleIcon
 } from "@heroicons/react/24/outline";
+import toast from "react-hot-toast";
 
 function AdminRegister() {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,7 +31,7 @@ function AdminRegister() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // Reset error state
+    setError('');
     
     try {
       const response = await fetch('http://localhost:5000/api/auth/admin/register', {
@@ -44,11 +45,117 @@ function AdminRegister() {
       const data = await response.json();
 
       if (response.ok) {
-        // Tampilkan pesan sukses
-        alert('Registration successful! Please login.');
-        navigate('/admin/login');
+        toast.custom((t) => (
+          <div className={`${
+            t.visible ? 'animate-enter' : 'animate-leave'
+          } max-w-md w-full bg-white shadow-2xl rounded-2xl pointer-events-auto overflow-hidden`}>
+            {/* Progress bar */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-gray-100">
+              <div className="h-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all duration-[4000ms] ease-linear"
+                   style={{ width: t.visible ? '100%' : '0%' }} />
+            </div>
+
+            <div className="p-6">
+              {/* Success Animation */}
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 p-[3px] animate-bounce">
+                <div className="flex items-center justify-center w-full h-full bg-white rounded-full">
+                  <CheckCircleIcon className="w-8 h-8 text-emerald-500" />
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="text-center mb-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  Registrasi Admin Berhasil!
+                </h3>
+                <p className="text-gray-600">
+                  Selamat datang di LuxeMart Admin, <span className="font-semibold">{formData.fullName}</span>!
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-3">
+                <button
+                  onClick={() => {
+                    toast.dismiss(t.id);
+                    navigate("/admin/login");
+                  }}
+                  className="flex-1 bg-gradient-to-r from-primary-500 to-primary-600 text-white px-6 py-3 rounded-xl
+                           font-medium transform hover:scale-[1.02] hover:shadow-lg hover:shadow-primary-500/25
+                           active:scale-[0.98] transition-all duration-200"
+                >
+                  Login Sekarang
+                </button>
+                <button
+                  onClick={() => toast.dismiss(t.id)}
+                  className="px-6 py-3 rounded-xl border-2 border-gray-200 text-gray-600 font-medium
+                           hover:bg-gray-50 hover:border-gray-300 transform hover:scale-[1.02] 
+                           active:scale-[0.98] transition-all duration-200"
+                >
+                  Nanti Saja
+                </button>
+              </div>
+            </div>
+
+            {/* Confetti Effect */}
+            <div className="absolute -top-10 left-0 w-full h-40 overflow-hidden pointer-events-none">
+              <div className="animate-confetti-1 absolute w-3 h-3 bg-yellow-500 rotate-45" style={{ left: '10%' }} />
+              <div className="animate-confetti-2 absolute w-3 h-3 bg-primary-500 rotate-45" style={{ left: '20%' }} />
+              <div className="animate-confetti-3 absolute w-3 h-3 bg-green-500 rotate-45" style={{ left: '30%' }} />
+              <div className="animate-confetti-4 absolute w-3 h-3 bg-pink-500 rotate-45" style={{ left: '40%' }} />
+              <div className="animate-confetti-5 absolute w-3 h-3 bg-blue-500 rotate-45" style={{ left: '50%' }} />
+              <div className="animate-confetti-6 absolute w-3 h-3 bg-purple-500 rotate-45" style={{ left: '60%' }} />
+              <div className="animate-confetti-7 absolute w-3 h-3 bg-red-500 rotate-45" style={{ left: '70%' }} />
+              <div className="animate-confetti-8 absolute w-3 h-3 bg-indigo-500 rotate-45" style={{ left: '80%' }} />
+            </div>
+          </div>
+        ), {
+          duration: 4000,
+          position: 'top-center',
+        });
+
+        setTimeout(() => {
+          navigate('/admin/login');
+        }, 4000);
       } else {
         setError(data.message || 'Registration failed');
+        
+        // Toast error
+        toast.custom((t) => (
+          <div className={`${
+            t.visible ? 'animate-enter' : 'animate-leave'
+          } max-w-md w-full bg-white shadow-2xl rounded-2xl pointer-events-auto overflow-hidden`}>
+            <div className="p-6">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-100 flex items-center justify-center">
+                <svg className="w-8 h-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              
+              <div className="text-center mb-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  Registrasi Gagal
+                </h3>
+                <p className="text-gray-600">
+                  {data.message || "Terjadi kesalahan saat registrasi"}
+                </p>
+              </div>
+
+              <button
+                onClick={() => toast.dismiss(t.id)}
+                className="w-full bg-gray-100 text-gray-700 px-6 py-3 rounded-xl font-medium
+                         hover:bg-gray-200 transform hover:scale-[1.02] active:scale-[0.98] 
+                         transition-all duration-200"
+              >
+                Tutup
+              </button>
+            </div>
+          </div>
+        ), {
+          duration: 4000,
+          position: 'top-center',
+        });
       }
     } catch (error) {
       console.error('Registration error:', error);
@@ -130,26 +237,6 @@ function AdminRegister() {
               </div>
             </div>
 
-            {/* Phone */}
-            <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                Phone Number
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <PhoneIcon className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="appearance-none block w-full pl-10 px-4 py-2.5 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                  placeholder="Enter your phone number"
-                />
-              </div>
-            </div>
 
             {/* Password */}
             <div>

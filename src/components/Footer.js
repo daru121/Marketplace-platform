@@ -3,115 +3,63 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="bg-white border-t border-gray-100">
-      <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-          {/* Brand Section */}
-          <div className="col-span-2 md:col-span-1">
-            <Link to="/" className="flex items-center space-x-1">
-              <span className="text-2xl font-extralight tracking-wider text-primary-900">LUXE</span>
-              <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent">
-                MART
-              </span>
-            </Link>
-            <p className="mt-4 text-sm text-gray-600 leading-relaxed">
-              Your premier destination for premium tech products. Experience luxury shopping with unmatched quality and service.
+    <footer className="bg-gradient-to-r from-gray-900 to-gray-800 shadow-xl text-white">
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Brand Section - Dipindah ke paling kiri */}
+          <div>
+            <div className="flex items-center mb-4">
+              <span className="text-2xl font-extralight tracking-wider text-white">LUXE</span>
+              <span className="text-2xl font-bold tracking-tight text-amber-400">MART</span>
+            </div>
+            <p className="text-sm text-gray-300">
+              Destinasi utama Anda untuk produk teknologi premium. Rasakan pengalaman berbelanja mewah dengan kualitas dan layanan terbaik.
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Shop Section */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900">Shop</h3>
-            <ul className="mt-4 space-y-3">
-              <li>
-                <Link to="/" className="text-sm text-gray-600 hover:text-primary-500 transition-colors">
-                  New Arrivals
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="text-sm text-gray-600 hover:text-primary-500 transition-colors">
-                  Best Sellers
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="text-sm text-gray-600 hover:text-primary-500 transition-colors">
-                  Special Offers
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="text-sm text-gray-600 hover:text-primary-500 transition-colors">
-                  Coming Soon
-                </Link>
-              </li>
+            <h3 className="text-amber-400 font-semibold mb-4">Produk</h3>
+            <ul className="space-y-2">
+              <li><a href="/new-arrivals" className="hover:text-amber-400 transition-colors">Produk Terbaru</a></li>
+              <li><a href="/best-sellers" className="hover:text-amber-400 transition-colors">Produk Terlaris</a></li>
+              <li><a href="/special-offers" className="hover:text-amber-400 transition-colors">Penawaran Khusus</a></li>
+              <li><a href="/coming-soon" className="hover:text-amber-400 transition-colors">Segera Hadir</a></li>
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Support Section */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900">Support</h3>
-            <ul className="mt-4 space-y-3">
-              <li>
-                <Link to="/" className="text-sm text-gray-600 hover:text-primary-500 transition-colors">
-                  Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="text-sm text-gray-600 hover:text-primary-500 transition-colors">
-                  FAQs
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="text-sm text-gray-600 hover:text-primary-500 transition-colors">
-                  Shipping Info
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="text-sm text-gray-600 hover:text-primary-500 transition-colors">
-                  Returns
-                </Link>
-              </li>
+            <h3 className="text-amber-400 font-semibold mb-4">Bantuan</h3>
+            <ul className="space-y-2">
+              <li><a href="/contact" className="hover:text-amber-400 transition-colors">Hubungi Kami</a></li>
+              <li><a href="/faqs" className="hover:text-amber-400 transition-colors">FAQ</a></li>
+              <li><a href="/shipping" className="hover:text-amber-400 transition-colors">Info Pengiriman</a></li>
+              <li><a href="/returns" className="hover:text-amber-400 transition-colors">Pengembalian</a></li>
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Contact Section */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900">Contact</h3>
-            <ul className="mt-4 space-y-3">
-              <li>
-                <p className="text-sm text-gray-600">
-                  Email: support@luxemart.com
-                </p>
-              </li>
-              <li>
-                <p className="text-sm text-gray-600">
-                  Phone: +1 (555) 123-4567
-                </p>
-              </li>
-              <li>
-                <p className="text-sm text-gray-600">
-                  Address: 123 Luxury Lane, Tech City, TC 12345
-                </p>
-              </li>
+            <h3 className="text-amber-400 font-semibold mb-4">Kontak</h3>
+            <ul className="space-y-2">
+              <li>Email: support@luxemart.com</li>
+              <li>Telepon: +1 (555) 123-4567</li>
+              <li>Alamat: Jl. Luxury No. 123, Jakarta Selatan</li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-12 pt-8 border-t border-gray-100">
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-xs text-gray-500">
-              © 2024 LuxeMart. All rights reserved.
+        <div className="border-t border-gray-700 mt-8 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p className="text-sm text-gray-400">
+              © 2024 LuxeMart. Hak cipta dilindungi.
             </p>
-            <div className="flex gap-6">
-              <Link to="/" className="text-xs text-gray-500 hover:text-primary-500 transition-colors">
-                Privacy Policy
-              </Link>
-              <Link to="/" className="text-xs text-gray-500 hover:text-primary-500 transition-colors">
-                Terms of Service
-              </Link>
-              <Link to="/" className="text-xs text-gray-500 hover:text-primary-500 transition-colors">
-                Cookie Policy
-              </Link>
+            <div className="flex gap-4 mt-4 md:mt-0">
+              <a href="/privacy" className="text-sm text-gray-400 hover:text-amber-400">Kebijakan Privasi</a>
+              <a href="/terms" className="text-sm text-gray-400 hover:text-amber-400">Syarat & Ketentuan</a>
+              <a href="/cookies" className="text-sm text-gray-400 hover:text-amber-400">Kebijakan Cookie</a>
             </div>
           </div>
         </div>

@@ -20,47 +20,65 @@ import SearchResults from './pages/SearchResults';
 import FlashSale from './pages/admin/FlashSale';
 import AboutUs from './pages/AboutUs';
 import Products from './pages/Products';
+import { CartProvider } from './context/CartContext';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-gray-50">
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/products" element={<Products />} />
-          </Route>
+    <CartProvider>
+      <Router>
+        <div className="min-h-screen bg-gray-100">
+          <Toaster
+            position="top-center"
+            reverseOrder={false}
+            gutter={8}
+            containerClassName="!mt-16"
+            toastOptions={{
+              duration: 3000,
+              className: '!bg-white !shadow-[0_8px_30px_rgb(0,0,0,0.12)] !rounded-xl !p-0',
+              style: {
+                maxWidth: '380px',
+                backgroundColor: 'white',
+              }
+            }}
+          />
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/products" element={<Products />} />
+            </Route>
 
-          {/* Admin Routes */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/register" element={<AdminRegister />} />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Overview />} />
-            <Route path="products" element={<AdminProducts />} />
-            <Route path="categories" element={<Categories />} />
-            <Route path="users" element={<Users />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="flash-sale" element={<FlashSale />} />
-          </Route>
+            {/* Admin Routes */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/register" element={<AdminRegister />} />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Overview />} />
+              <Route path="products" element={<AdminProducts />} />
+              <Route path="categories" element={<Categories />} />
+              <Route path="users" element={<Users />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="flash-sale" element={<FlashSale />} />
+            </Route>
 
-          <Route path="/category/:id" element={<CategoryPage />} />
-          <Route path="/search" element={<SearchResults />} />
-        </Routes>
-      </div>
-    </Router>
+            <Route path="/category/:id" element={<CategoryPage />} />
+            <Route path="/search" element={<SearchResults />} />
+          </Routes>
+        </div>
+      </Router>
+    </CartProvider>
   );
 }
 

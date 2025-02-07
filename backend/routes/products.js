@@ -112,6 +112,50 @@ router.get('/popular', async (req, res) => {
   }
 });
 
+// Get single product detail
+router.get('/:id', async (req, res) => {
+  try {
+    const [rows] = await db.query(`
+      SELECT 
+        p.*,
+        c.name as category_name,
+        CASE 
+          WHEN p.flash_sale = TRUE 
+          AND NOW() BETWEEN p.flash_sale_start AND p.flash_sale_end 
+          THEN TRUE 
+          ELSE FALSE 
+        END as is_flash_sale_active
+      FROM products p
+      LEFT JOIN categories c ON p.category_id = c.id
+      WHERE p.id = ?
+    `, [req.params.id]);
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    const product = rows[0];
+
+    // Format data untuk frontend
+    if (product.is_flash_sale_active) {
+      product.flash_sale = true;
+      product.original_price = parseFloat(product.price);
+      product.price = parseFloat(product.flash_sale_price);
+      
+      // Hitung persentase diskon
+      const discount = ((product.original_price - product.price) / product.original_price) * 100;
+      product.discount_percentage = Math.round(discount);
+    } else {
+      product.flash_sale = false;
+    }
+
+    res.json(product);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 // Update flash sale settings
 router.put('/:id/flash-sale', async (req, res) => {
   try {
@@ -134,8 +178,8 @@ router.put('/:id/flash-sale', async (req, res) => {
 
     res.json({ message: 'Flash sale settings updated successfully' });
   } catch (error) {
-    console.error('Error updating flash sale:', error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 
