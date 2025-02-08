@@ -150,7 +150,7 @@ function Home() {
     <div className="min-h-screen px-4 py-6 space-y-8">
       {/* Hero Banner Carousel */}
       <section className="relative rounded-2xl overflow-hidden shadow-2xl">
-        <div className="relative h-[300px] md:h-[500px]">
+        <div className="relative h-[400px] sm:h-[450px] md:h-[500px]">
           {banners.map((banner, index) => (
             <div
               key={banner.id}
@@ -176,31 +176,39 @@ function Home() {
               
               {/* Content Container */}
               <div className="absolute inset-0 flex items-center">
-                <div className="container mx-auto px-6 md:px-12">
-                  <div className={`flex flex-col ${banner.position} h-full py-20`}>
-                    <div className="backdrop-blur-md bg-black/20 p-12 rounded-[2.5rem] 
-                                  border border-white/10 shadow-2xl max-w-xl
-                                  transform transition-all duration-700 hover:scale-105
-                                  hover:bg-black/30 hover:border-white/20
-                                  hover:shadow-[0_0_50px_rgba(255,255,255,0.1)]">
+                <div className="container mx-auto px-4 md:px-12">
+                  <div className={`flex flex-col ${banner.position} h-full py-10 md:py-20`}>
+                    <div className="backdrop-blur-md bg-black/20 p-6 md:p-12 
+                                rounded-2xl md:rounded-[2.5rem] 
+                                border border-white/10 shadow-2xl 
+                                max-w-[300px] sm:max-w-[400px] md:max-w-xl
+                                transform transition-all duration-700 hover:scale-105
+                                hover:bg-black/30 hover:border-white/20
+                                hover:shadow-[0_0_50px_rgba(255,255,255,0.1)]">
                       {/* Title */}
-                      <h1 className="text-6xl md:text-7xl font-bold text-white 
-                                  tracking-tight leading-none mb-8 whitespace-pre-line
-                                  [text-shadow:_0_2px_10px_rgba(0,0,0,0.3)]">
+                      <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl 
+                                 font-bold text-white tracking-tight leading-none 
+                                 mb-4 md:mb-8 whitespace-pre-line
+                                 [text-shadow:_0_2px_10px_rgba(0,0,0,0.3)]">
                         {banner.title}
                       </h1>
 
                       {/* Description */}
-                      <p className="text-xl text-white/90 mb-10 leading-relaxed
-                                 [text-shadow:_0_1px_5px_rgba(0,0,0,0.2)]">
+                      <p className="text-sm sm:text-base md:text-xl text-white/90 
+                                mb-6 md:mb-10 leading-relaxed
+                                [text-shadow:_0_1px_5px_rgba(0,0,0,0.2)]">
                         {banner.description}
                       </p>
 
                       {/* Button */}
-                      <button className="px-10 py-4 bg-white/95 text-gray-900 rounded-full 
-                                     font-medium transition-all duration-500 
-                                     hover:bg-white hover:shadow-2xl hover:shadow-white/20
-                                     active:scale-95 text-lg tracking-wide
+                      <button className="px-6 md:px-10 py-2.5 md:py-4 
+                                     bg-white/95 text-gray-900 
+                                     rounded-full font-medium 
+                                     transition-all duration-500 
+                                     text-sm md:text-lg tracking-wide
+                                     hover:bg-white hover:shadow-2xl 
+                                     hover:shadow-white/20
+                                     active:scale-95
                                      border border-white/50 backdrop-blur-sm
                                      hover:tracking-wider">
                         {banner.buttonText}
@@ -212,137 +220,163 @@ function Home() {
             </div>
           ))}
 
-          {/* Navigation Buttons */}
+          {/* Navigation Buttons - Responsif */}
           <button
             onClick={prevBanner}
-            className="absolute left-6 top-1/2 -translate-y-1/2 p-4 rounded-full 
+            className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 
+                     p-2 md:p-4 rounded-full 
                      bg-black/20 backdrop-blur-xl hover:bg-black/40 
                      transition-all duration-300 group border border-white/10
                      hover:border-white/20"
           >
-            <ChevronLeftIcon className="h-7 w-7 text-white group-hover:scale-110" />
+            <ChevronLeftIcon className="h-5 w-5 md:h-7 md:w-7 text-white group-hover:scale-110" />
           </button>
           <button
             onClick={nextBanner}
-            className="absolute right-6 top-1/2 -translate-y-1/2 p-4 rounded-full 
+            className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 
+                     p-2 md:p-4 rounded-full 
                      bg-black/20 backdrop-blur-xl hover:bg-black/40 
                      transition-all duration-300 group border border-white/10
                      hover:border-white/20"
           >
-            <ChevronRightIcon className="h-7 w-7 text-white group-hover:scale-110" />
+            <ChevronRightIcon className="h-5 w-5 md:h-7 md:w-7 text-white group-hover:scale-110" />
           </button>
 
-          {/* Dots Navigation */}
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex space-x-4">
+          {/* Dots Navigation - Responsif */}
+          <div className="absolute bottom-4 md:bottom-10 left-1/2 -translate-x-1/2 
+                       flex space-x-2 md:space-x-4">
             {banners.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentBanner(index)}
                 className={`transition-all duration-500 rounded-full 
                           ${index === currentBanner 
-                            ? "w-16 h-2 bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]" 
-                            : "w-2 h-2 bg-white/40 hover:bg-white/60"}`}
+                            ? "w-8 md:w-16 h-1.5 md:h-2 bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]" 
+                            : "w-1.5 md:w-2 h-1.5 md:h-2 bg-white/40 hover:bg-white/60"}`}
               />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Categories - Dipindah ke sini */}
-      <section className="py-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Premium Products */}
-          <div className="group relative h-[180px] rounded-2xl overflow-hidden cursor-pointer
-                       hover:shadow-2xl hover:shadow-violet-500/20 transition-all duration-500">
+      {/* Featured Categories - Dengan karakter yang lebih mewah */}
+      <section className="py-4 px-4 md:px-0">
+        {/* Title Section untuk Mobile */}
+        <div className="mb-6 md:hidden">
+          <h2 className="text-2xl font-bold text-gray-800">
+            Featured Collections
+          </h2>
+          <p className="text-gray-600 text-sm mt-1">
+            Discover our exclusive selections
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          {/* Luxury Collection */}
+          <div className="group relative h-[160px] md:h-[200px] rounded-xl md:rounded-[2rem] 
+                       overflow-hidden cursor-pointer hover:shadow-2xl 
+                       hover:shadow-violet-500/20 transition-all duration-500">
             <div className="absolute inset-0 bg-gradient-to-br from-violet-500 via-violet-600 to-indigo-800" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.1),transparent)]" />
+            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80')] 
+                         bg-cover bg-center opacity-20 group-hover:opacity-30 
+                         transition-all duration-700 scale-110" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent" />
             
-            <div className="relative h-full p-6 flex flex-col justify-between">
-              <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-sm 
-                           flex items-center justify-center border border-white/20
-                           transform transition-all duration-500 
+            <div className="relative h-full p-5 md:p-8 flex flex-col justify-between">
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl 
+                           bg-white/10 backdrop-blur-sm flex items-center justify-center 
+                           border border-white/20 transform transition-all duration-500 
                            group-hover:scale-110 group-hover:rotate-12">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
-                        d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                </svg>
+                <span className="text-xl md:text-2xl text-white">👑</span>
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-white mb-2 
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-3 
                              tracking-wide group-hover:tracking-wider
                              transition-all duration-500">
-                  Premium Products
+                  Luxury Collection
                 </h3>
-                <p className="text-white/80 text-sm font-medium">
-                  Discover our high-end collection
+                <p className="text-white/80 text-xs md:text-sm font-medium 
+                           line-clamp-2 md:line-clamp-1">
+                  Discover timeless elegance
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Hot Deals - dengan style yang sama */}
-          <div className="group relative h-[180px] rounded-2xl overflow-hidden cursor-pointer
-                       hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-500">
+          {/* Exclusive Deals - dengan style yang sama */}
+          <div className="group relative h-[160px] md:h-[200px] rounded-xl md:rounded-[2rem] 
+                       overflow-hidden cursor-pointer hover:shadow-2xl 
+                       hover:shadow-amber-500/20 transition-all duration-500">
             <div className="absolute inset-0 bg-gradient-to-br from-amber-400 via-orange-500 to-red-600" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.1),transparent)]" />
+            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80')] 
+                         bg-cover bg-center opacity-20 group-hover:opacity-30 
+                         transition-all duration-700 scale-110" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent" />
             
-            <div className="relative h-full p-6 flex flex-col justify-between">
-              <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-sm 
-                           flex items-center justify-center border border-white/20
-                           transform transition-all duration-500 
+            <div className="relative h-full p-5 md:p-8 flex flex-col justify-between">
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl 
+                           bg-white/10 backdrop-blur-sm flex items-center justify-center 
+                           border border-white/20 transform transition-all duration-500 
                            group-hover:scale-110 group-hover:rotate-12">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
-                        d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
-                </svg>
+                <span className="text-xl md:text-2xl text-white">✨</span>
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-white mb-2 
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-3 
                              tracking-wide group-hover:tracking-wider
                              transition-all duration-500">
-                  Hot Deals
+                  Exclusive Deals
                 </h3>
-                <p className="text-white/80 text-sm font-medium">
-                  Best offers of the season
+                <p className="text-white/80 text-xs md:text-sm font-medium 
+                           line-clamp-2 md:line-clamp-1">
+                  Limited time offers
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Best Sellers - dengan style yang sama */}
-          <div className="group relative h-[180px] rounded-2xl overflow-hidden cursor-pointer
-                       hover:shadow-2xl hover:shadow-emerald-500/20 transition-all duration-500">
+          {/* Premium Selection - dengan style yang sama */}
+          <div className="group relative h-[160px] md:h-[200px] rounded-xl md:rounded-[2rem] 
+                       overflow-hidden cursor-pointer hover:shadow-2xl 
+                       hover:shadow-emerald-500/20 transition-all duration-500">
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-600" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.1),transparent)]" />
+            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80')] 
+                         bg-cover bg-center opacity-20 group-hover:opacity-30 
+                         transition-all duration-700 scale-110" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent" />
             
-            <div className="relative h-full p-6 flex flex-col justify-between">
-              <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-sm 
-                           flex items-center justify-center border border-white/20
-                           transform transition-all duration-500 
+            <div className="relative h-full p-5 md:p-8 flex flex-col justify-between">
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl 
+                           bg-white/10 backdrop-blur-sm flex items-center justify-center 
+                           border border-white/20 transform transition-all duration-500 
                            group-hover:scale-110 group-hover:rotate-12">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
-                        d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0" />
-                </svg>
+                <span className="text-xl md:text-2xl text-white">💎</span>
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-white mb-2 
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-3 
                              tracking-wide group-hover:tracking-wider
                              transition-all duration-500">
-                  Best Sellers
+                  Premium Selection
                 </h3>
-                <p className="text-white/80 text-sm font-medium">
-                  Most popular choices
+                <p className="text-white/80 text-xs md:text-sm font-medium 
+                           line-clamp-2 md:line-clamp-1">
+                  Curated for excellence
                 </p>
               </div>
             </div>
           </div>
+        </div>
+
+        {/* View All Button untuk Mobile */}
+        <div className="mt-6 md:hidden">
+          <button className="w-full py-3 px-4 bg-gray-50 text-gray-700 rounded-xl 
+                          font-medium hover:bg-gray-100 transition-all duration-300
+                          flex items-center justify-center gap-2">
+            View All Collections
+            <ChevronRightIcon className="w-4 h-4" />
+          </button>
         </div>
       </section>
 
