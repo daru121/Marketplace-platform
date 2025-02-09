@@ -166,7 +166,8 @@ function Cart() {
 
           {/* Cart Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-sm p-4 sticky top-20">
+            {/* Desktop Summary */}
+            <div className="hidden lg:block bg-white rounded-xl shadow-sm p-4 sticky top-20">
               <h3 className="text-lg font-semibold text-gray-900 pb-4 border-b border-gray-100">
                 Ringkasan Belanja
               </h3>
@@ -193,8 +194,25 @@ function Cart() {
                 </div>
               </div>
             </div>
+
+            {/* Mobile Floating Summary */}
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <p className="text-sm text-gray-500">Total ({cartItems.length} item)</p>
+                  <p className="text-lg font-bold text-primary-500">Rp {formatPrice(calculateTotal())}</p>
+                </div>
+                <button className="bg-primary-500 text-white py-3 px-6 rounded-xl 
+                               hover:bg-primary-600 transition-colors text-sm font-medium flex-shrink-0">
+                  Lanjutkan ke Pembayaran
+                </button>
+              </div>
+            </div>
           </div>
         </div>
+
+        {/* Add padding bottom for mobile to prevent content being hidden behind floating summary */}
+        <div className="h-24 lg:hidden"></div>
       </div>
     </div>
   );
